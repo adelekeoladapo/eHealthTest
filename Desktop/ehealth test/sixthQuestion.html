@@ -1,0 +1,45 @@
+<html>
+	<head>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/pouchdb/2.2.3/pouchdb.js"></script>
+            <script src="https://rawgit.com/angular-pouchdb/angular-pouchdb/master/angular-pouchdb.js"></script>
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.css">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine-html.min.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/boot.min.js"></script>
+	</head>
+        <body ng-app="app" ng-controller="appCtrl">
+            
+            <h4>Hello {{ title }}</h4>
+            
+	</body>
+	<script type="text/javascript">
+            
+            var app = angular.module("app", ['pouchdb']);
+            
+            app.controller('appCtrl', function($log, $scope, pouchDB) {
+                
+                $scope.title = "Tester";
+                
+                var db = pouchDB('nameDB');
+                
+                $scope.addName = function(name){
+                    db.put(name);
+                    return name;
+                }
+                
+                $scope.test = function() {
+                    return true;
+                }
+                
+                describe('Add Name', function () {
+                    it('addName(name) should equal name', function() {
+                        expect($scope.addName('dapo')).toBe('dapo');
+                    });
+                });
+                
+            });
+         
+	</script>
+        
+</html>
